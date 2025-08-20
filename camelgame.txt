@@ -1,0 +1,23 @@
+Create a game requiring While and If/ElIF Loops as well as random numbers
+"Game gives options to the user like:                                                                                                                                     A. Drink from your canteen.
+B. Ahead moderate speed.
+C. Ahead full speed.
+D. Stop for the night.
+E. Status check.
+Q. Quit."
+Game imports the random library to the program and uses a random number to determine how much closer the natives should get after resting for the night (or some similar situation), generating a random chance event like finding an oasis, etc. 
+"Game tracks at least five variables such as:                                                                                                                          miles_traveled 
+thirst 
+camel_tiredness 
+distance_natives_traveled 
+drinks_in_canteen        "
+Game allows the user to Quit - stops giving multiple choice answers and prints that the user has quit
+Game allows the user to check their status and prints the status of the variables for the game
+Game should allow the user to drink only 3 times from a canteen - or similar situation and print an error if user is out of drinks
+Game tracks users thirst (or something similar). If user's thirst level is 4 or more, the game will say "You are thirsty". If the thirst level is 6 or more, the game will say "You died of thirst" and end.
+Game tracks users camel tiredness (or something silmilar). If camel's tiredness 5 or more, the game will tell the user the camel is tired. If the camel's tiredness is greater than 8 the game will say the camel died and will end. 
+The game should not tell you "Your camel is getting tired" after you already died of thirst.
+If natives distance is equal to or greather than your distance, game should say "The natives have caught up with you! You lose" stop
+If natives are less than 15 miles away, the game should say "The natives are close!"
+If you travel more than 200 miles before dying, the game should say, you won! and stop.
+Create a 1 in 20 chance that you have found an oasis - Print that the user found it, refill the canteen, reset player thirst, and rest the camel.
