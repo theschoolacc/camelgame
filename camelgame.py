@@ -1,11 +1,20 @@
 import random
 import time
 import sys
+import os
 
 print("Welcome to the Camel Game!\nYou've taken a camel to journey across the vast Sahara desert. The locals are pursuing you to reclaim their camel. Endure your desert adventure and stay ahead of the natives.")
 
 # Game Starts
-class CamelGame:
+while True:
+    class CamelGame:
+        def __init__(self):
+            self.miles_traveled = 0
+            self.thirst = 0
+            self.camel_tiredness = 0
+            self.distance_natives_traveled = 0
+            self.drinks_in_canteen = 3
+
     print("A. Drink from your canteen.")
     print("B. Ahead moderate speed.")
     print("C. Ahead full speed.")
@@ -26,3 +35,9 @@ class CamelGame:
         print("You check your status.")
     elif user_choice == "Q":
         print("You quit the game.")
+        
+        
+    # Clear Console
+    os.system("cls") # Fixed Bug --> 'clear' command not working on Windows
+
+
