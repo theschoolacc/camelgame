@@ -6,7 +6,8 @@ import os
 print("Welcome to the Camel Game!\nYou've taken a camel to journey across the vast Sahara desert. The locals are pursuing you to reclaim their camel. Endure your desert adventure and stay ahead of the natives.")
 
 # Game Starts
-while True:
+quit_game = False
+while not quit_game:
     class CamelGame:
         def __init__(self):
             self.miles_traveled = 0
@@ -35,9 +36,7 @@ while True:
         print("You check your status.")
     elif user_choice == "Q":
         print("You quit the game.")
-        
-        
+        quit_game = True
+
     # Clear Console
     os.system("cls") # Fixed Bug --> 'clear' command not working on Windows
-
-
