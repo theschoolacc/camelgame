@@ -9,6 +9,8 @@ natives_traveled = -20   # start 20 miles behind
 canteen = 3
 done = False
 
+# add camel class and selection here if (needed)
+
 
 while not done:
     if miles_traveled == 0 and thirst == 0 and camel_tiredness == 0 and natives_traveled == -20 and canteen == 3:
