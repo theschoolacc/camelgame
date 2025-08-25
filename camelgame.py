@@ -6,6 +6,9 @@ print("You’ve taken a camel to journey across the vast Sahara desert.")
 print("The locals are pursuing you to reclaim their camel.")
 print("Endure your desert adventure and stay ahead of the natives.\n")
 
+
+
+
 # Variables
 miles_traveled = 0
 thirst = 0
@@ -15,10 +18,20 @@ canteen = 3
 done = False
 
 while not done:
-    print("\nA. Drink from your canteen.")
-    print("B. Ahead moderate speed.")
-    print("C. Ahead full speed.")
-    print("D. Stop for the night.")
+print("""
+====================================
+    Welcome to the Camel Game!
+====================================
+You’ve taken a camel to journey across the vast Sahara desert.
+The locals are pursuing you to reclaim their camel.
+Endure your desert adventure and stay ahead of the natives.
+
+Instructions:
+- Choose actions each turn to manage thirst, camel tiredness, and distance.
+- Reach 200 miles to win. If the natives catch you, you lose!
+- Find oases for a boost. Good luck!
+====================================
+""")
     print("E. Status check.")
     print("Q. Quit.")
 
@@ -56,7 +69,7 @@ while not done:
         camel_tiredness = 0
         print("You stop for the night. Your camel is happy.")
         natives_traveled += random.randint(7, 14)
-
+    print(f"\nYou traveled {miles} miles at moderate speed.")
     elif choice == "E":
         print(f"\nMiles traveled: {miles_traveled}")
         print(f"Drinks in canteen: {canteen}")
@@ -64,7 +77,7 @@ while not done:
         print(f"Camel tiredness: {camel_tiredness}")
         print(f"The natives are {miles_traveled - natives_traveled} miles behind you.")
 
-    # random oasis event
+    print(f"\nYou traveled {miles} miles at full speed. Camel tiredness increased by {tired}.")
     if not done and random.randint(1, 20) == 1:
         print("\nYou found an oasis!")
         canteen = 3
@@ -95,5 +108,5 @@ while not done:
         print("Congratulations! You crossed the desert and won!")
         done = True
 
-    # Clear console each loop (optional for Windows)
-    # os.system("cls")
+    # Clear console each loop
+    os.system("clear")
