@@ -1,14 +1,6 @@
 import random
 import os
 
-print("Welcome to the Camel Game!")
-print("You’ve taken a camel to journey across the vast Sahara desert.")
-print("The locals are pursuing you to reclaim their camel.")
-print("Endure your desert adventure and stay ahead of the natives.\n")
-
-
-
-
 # Variables
 miles_traveled = 0
 thirst = 0
@@ -17,21 +9,27 @@ natives_traveled = -20   # start 20 miles behind
 canteen = 3
 done = False
 
-while not done:
-print("""
-====================================
-    Welcome to the Camel Game!
-====================================
-You’ve taken a camel to journey across the vast Sahara desert.
-The locals are pursuing you to reclaim their camel.
-Endure your desert adventure and stay ahead of the natives.
 
-Instructions:
-- Choose actions each turn to manage thirst, camel tiredness, and distance.
-- Reach 200 miles to win. If the natives catch you, you lose!
-- Find oases for a boost. Good luck!
-====================================
-""")
+while not done:
+    if miles_traveled == 0 and thirst == 0 and camel_tiredness == 0 and natives_traveled == -20 and canteen == 3:
+        print("""
+    ====================================
+        Welcome to the Camel Game!
+    ====================================
+    You’ve taken a camel to journey across the vast Sahara desert.
+    The locals are pursuing you to reclaim their camel.
+    Endure your desert adventure and stay ahead of the natives.
+
+    Instructions:
+    - Choose actions each turn to manage thirst, camel tiredness, and distance.
+    - Reach 200 miles to win. If the natives catch you, you lose!
+    - Find oases for a boost. Good luck!
+    ====================================
+    """)
+    print("A. Drink from your canteen.")
+    print("B. Ahead moderate speed.")
+    print("C. Ahead full speed.")
+    print("D. Stop for the night.")
     print("E. Status check.")
     print("Q. Quit.")
 
@@ -61,23 +59,22 @@ Instructions:
         miles = random.randint(10, 20)
         miles_traveled += miles
         thirst += 1
-        camel_tiredness += random.randint(1, 3)
+        tired = random.randint(1, 3)
+        camel_tiredness += tired
         natives_traveled += random.randint(7, 14)
-        print(f"You traveled {miles} miles at full speed.")
+        print(f"You traveled {miles} miles at full speed. Camel tiredness increased by {tired}.")
 
     elif choice == "D":
         camel_tiredness = 0
         print("You stop for the night. Your camel is happy.")
         natives_traveled += random.randint(7, 14)
-    print(f"\nYou traveled {miles} miles at moderate speed.")
+
     elif choice == "E":
-        print(f"\nMiles traveled: {miles_traveled}")
-        print(f"Drinks in canteen: {canteen}")
-        print(f"Thirst: {thirst}")
-        print(f"Camel tiredness: {camel_tiredness}")
+        print(f"\nMiles traveled:  {miles_traveled}")
+        print(f"Drinks in canteen:  {canteen}")
         print(f"The natives are {miles_traveled - natives_traveled} miles behind you.")
 
-    print(f"\nYou traveled {miles} miles at full speed. Camel tiredness increased by {tired}.")
+    # Oasis event
     if not done and random.randint(1, 20) == 1:
         print("\nYou found an oasis!")
         canteen = 3
@@ -86,27 +83,28 @@ Instructions:
         print("Your canteen is refilled, thirst quenched, and camel rested!")
 
     # check game conditions
-    if not done and thirst >= 6:
-        print("You died of thirst!")
-        done = True
-    elif not done and thirst >= 4:
-        print("You are thirsty!")
+    if choice != "E":
+        if not done and thirst >= 6:
+            print("You died of thirst!")
+            done = True
+        elif not done and thirst >= 4:
+            print("You are thirsty!")
 
-    if not done and camel_tiredness > 8:
-        print("Your camel has died!")
-        done = True
-    elif not done and camel_tiredness >= 5:
-        print("Your camel is getting tired.")
+        if not done and camel_tiredness > 8:
+            print("Your camel has died!")
+            done = True
+        elif not done and camel_tiredness >= 5:
+            print("Your camel is getting tired.")
 
-    if not done and natives_traveled >= miles_traveled:
-        print("The natives have caught up with you! You lose!")
-        done = True
-    elif not done and (miles_traveled - natives_traveled) < 15:
-        print("The natives are close!")
+        if not done and natives_traveled >= miles_traveled:
+            print("The natives have caught up with you! You lose!")
+            done = True
+        elif not done and (miles_traveled - natives_traveled) < 15:
+            print("The natives are getting close!")
 
-    if not done and miles_traveled >= 200:
-        print("Congratulations! You crossed the desert and won!")
-        done = True
+        if not done and miles_traveled >= 200:
+            print("You made it across the desert! You won!")
+            done = True
 
     # Clear console each loop
     os.system("clear")
