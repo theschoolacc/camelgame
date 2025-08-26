@@ -26,9 +26,7 @@ done = False
 
 
 
-while not done:
-    if miles_traveled == 0 and thirst == 0 and camel_tiredness == 0 and natives_traveled == -20 and canteen == 3:
-        typewriter("""
+typewriter("""
 ====================================
     Welcome to the Camel Game!
 ====================================
@@ -42,6 +40,8 @@ Instructions:
 - Find oases for a boost. Good luck!
 ====================================
 """, 0.01)
+
+while not done:
     typewriter("A. Drink from your canteen.", 0.01)
     typewriter("B. Ahead moderate speed.", 0.01)
     typewriter("C. Ahead full speed.", 0.01)
