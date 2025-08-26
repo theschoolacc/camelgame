@@ -69,7 +69,7 @@ while not done:
 
     elif choice == "D":
         camel_tiredness = 0
-        print("You stop for the night. Your camel is happy.")
+        print("You stop for the night. Your casmel is happy.")
         natives_traveled += random.randint(7, 14)
 
     elif choice == "E":
