@@ -6,3 +6,4 @@ Todo:
   ✔ Fix console clearing issue on Windows @started(25-08-26 08:52) @done(25-08-26 08:52) @lasted(14s)
   ✔ Make sure choices (A,B,C,etc) are properly working @done(25-08-26 08:52)
   ☐ Finish the project documentation
+  ✔ Make it print how close the natives are every turn @started(25-08-26 09:28) @done(25-08-26 09:28) @lasted(20s)

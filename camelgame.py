@@ -98,6 +98,14 @@ while not done:
         camel_tiredness = 0
         typewriter("Your canteen is refilled, thirst quenched, and camel rested!", 0.02)
 
+    # Print natives' distance every turn
+    if not done:
+        distance = miles_traveled - natives_traveled
+        if distance > 0:
+            typewriter(f"The natives are {distance} miles behind you.", 0.015)
+        elif distance == 0:
+            typewriter("The natives are right on your tail!", 0.02)
+
     # check game conditions
     if choice != "E":
         if not done and thirst >= 6:
