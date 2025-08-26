@@ -1,4 +1,4 @@
-import random
+import random # Point 2
 import os
 
 # Variables
@@ -33,7 +33,8 @@ while not done:
     print("C. Ahead full speed.")
     print("D. Stop for the night.")
     print("E. Status check.")
-    print("Q. Quit.")
+    print("Q. Quit.") 
+    # ^ Point 1
 
     choice = input("Your choice: ").upper()
 
@@ -108,5 +109,6 @@ while not done:
             print("You made it across the desert! You won!")
             done = True
 
-    # Clear console each loop
-    os.system("clear")
+    # Clear Console Functionality Fix (To-Do)
+
+    
