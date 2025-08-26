@@ -80,7 +80,7 @@ while not done:
         print(f"The natives are {miles_traveled - natives_traveled} miles behind you.")
 
     # Oasis event
-    if not done and random.randint(1, 20) == 1:
+    if not done and random.randint(1, 10) == 1:
         print("\nYou found an oasis!")
         canteen = 3
         thirst = 0
@@ -107,10 +107,14 @@ while not done:
         elif not done and (miles_traveled - natives_traveled) < 15:
             print("The natives are getting close!")
 
-        if not done and miles_traveled >= 200:
+        if not done and miles_traveled >= 100:
             print("You made it across the desert! You won!")
             done = True
 
     # Clear Console Functionality Fix (To-Do)
+    if not done:
+        input("\nPress Enter to continue...")
+        os.system('cls' if os.name == 'nt' else 'clear')
 
+    
     
