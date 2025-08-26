@@ -1,5 +1,16 @@
-import random # Point 2
-import os
+import random # p1
+import os # clear console
+import sys # parameters & functions
+import time # typewriter effect
+
+# Typewriter effect function
+def typewriter(text, delay=0.02):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(delay)
+    print()
+
 
 # Variables
 miles_traveled = 0
@@ -14,43 +25,43 @@ done = False
 # add camel class and selection here if (needed)
 
 
+
 while not done:
     if miles_traveled == 0 and thirst == 0 and camel_tiredness == 0 and natives_traveled == -20 and canteen == 3:
-        print("""
-    ====================================
-        Welcome to the Camel Game!
-    ====================================
-    You’ve taken a camel to journey across the vast Sahara desert.
-    The locals are pursuing you to reclaim their camel.
-    Endure your desert adventure and stay ahead of the natives.
+        typewriter("""
+====================================
+    Welcome to the Camel Game!
+====================================
+You’ve taken a camel to journey across the vast Sahara desert.
+The locals are pursuing you to reclaim their camel.
+Endure your desert adventure and stay ahead of the natives.
 
-    Instructions:
-    - Choose actions each turn to manage thirst, camel tiredness, and distance.
-    - Reach 200 miles to win. If the natives catch you, you lose!
-    - Find oases for a boost. Good luck!
-    ====================================
-    """)
-    print("A. Drink from your canteen.")
-    print("B. Ahead moderate speed.")
-    print("C. Ahead full speed.")
-    print("D. Stop for the night.")
-    print("E. Status check.")
-    print("Q. Quit.") 
-    # ^ Point 1
+Instructions:
+- Choose actions each turn to manage thirst, camel tiredness, and distance.
+- Reach 200 miles to win. If the natives catch you, you lose!
+- Find oases for a boost. Good luck!
+====================================
+""", 0.01)
+    typewriter("A. Drink from your canteen.", 0.01)
+    typewriter("B. Ahead moderate speed.", 0.01)
+    typewriter("C. Ahead full speed.", 0.01)
+    typewriter("D. Stop for the night.", 0.01)
+    typewriter("E. Status check.", 0.01)
+    typewriter("Q. Quit.", 0.01)
 
-    choice = input("Your choice: ").upper()
+    choice = input("\nYour choice: ").upper()
 
     if choice == "Q":
-        print("You quit the game.")
+        typewriter("You quit the game. Thanks for playing!", 0.02)
         done = True
 
     elif choice == "A":
         if canteen > 0:
             canteen -= 1
             thirst = 0
-            print("You take a drink. Thirst is gone.")
+            typewriter("You take a drink. Thirst is gone.", 0.02)
         else:
-            print("You have no drinks left!")
+            typewriter("You have no drinks left!", 0.02)
 
     elif choice == "B":
         miles = random.randint(5, 12)
@@ -58,7 +69,7 @@ while not done:
         thirst += 1
         camel_tiredness += 1
         natives_traveled += random.randint(7, 14)
-        print(f"You traveled {miles} miles at moderate speed.")
+        typewriter(f"You traveled {miles} miles at moderate speed.", 0.02)
 
     elif choice == "C":
         miles = random.randint(10, 20)
@@ -67,48 +78,48 @@ while not done:
         tired = random.randint(1, 3)
         camel_tiredness += tired
         natives_traveled += random.randint(7, 14)
-        print(f"You traveled {miles} miles at full speed. Camel tiredness increased by {tired}.")
+        typewriter(f"You traveled {miles} miles at full speed. Camel tiredness increased by {tired}.", 0.02)
 
     elif choice == "D":
         camel_tiredness = 0
-        print("You stop for the night. Your camel is happy.") # fixed spelling
+        typewriter("You stop for the night. Your camel is happy and well rested.", 0.02)
         natives_traveled += random.randint(7, 14)
 
     elif choice == "E":
-        print(f"\nMiles traveled:  {miles_traveled}")
-        print(f"Drinks in canteen:  {canteen}")
-        print(f"The natives are {miles_traveled - natives_traveled} miles behind you.")
+        typewriter(f"\nMiles traveled:  {miles_traveled}", 0.01)
+        typewriter(f"Drinks in canteen:  {canteen}", 0.01)
+        typewriter(f"The natives are {miles_traveled - natives_traveled} miles behind you.", 0.01)
 
     # Oasis event
     if not done and random.randint(1, 10) == 1:
-        print("\nYou found an oasis!")
+        typewriter("\nYou found an oasis!", 0.02)
         canteen = 3
         thirst = 0
         camel_tiredness = 0
-        print("Your canteen is refilled, thirst quenched, and camel rested!")
+        typewriter("Your canteen is refilled, thirst quenched, and camel rested!", 0.02)
 
     # check game conditions
     if choice != "E":
         if not done and thirst >= 6:
-            print("You died of thirst!")
+            typewriter("You died of thirst! Game over.", 0.03)
             done = True
         elif not done and thirst >= 4:
-            print("You are thirsty!")
+            typewriter("You are thirsty!", 0.02)
 
         if not done and camel_tiredness > 8:
-            print("Your camel has died!")
+            typewriter("Your camel has died from exhaustion! Game over.", 0.03)
             done = True
         elif not done and camel_tiredness >= 5:
-            print("Your camel is getting tired.")
+            typewriter("Your camel is getting tired.", 0.02)
 
         if not done and natives_traveled >= miles_traveled:
-            print("The natives have caught up with you! You lose!")
+            typewriter("The natives have caught up with you! You lose!", 0.03)
             done = True
         elif not done and (miles_traveled - natives_traveled) < 15:
-            print("The natives are getting close!")
+            typewriter("The natives are getting close!", 0.02)
 
         if not done and miles_traveled >= 100:
-            print("You made it across the desert! You won!")
+            typewriter("You made it across the desert! You won! Congratulations!", 0.03)
             done = True
 
     # Clear Console Functionality Fix (To-Do)
