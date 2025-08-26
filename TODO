@@ -2,7 +2,7 @@
 Todo:
   ☐ Add background story
   ☐ Fix bugs in the game logic
-  ☐ Optimize performance
-  ☐ Fix console clearing issue on Windows
-  ☐ Make sure choices (A,B,C,etc) are properly working @started(25-08-26 08:36)
+  ☐ Optimize performance @started(25-08-26 08:52)
+  ✔ Fix console clearing issue on Windows @started(25-08-26 08:52) @done(25-08-26 08:52) @lasted(14s)
+  ✔ Make sure choices (A,B,C,etc) are properly working @done(25-08-26 08:52)
   ☐ Finish the project documentation
