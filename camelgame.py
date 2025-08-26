@@ -5,7 +5,9 @@ import os
 miles_traveled = 0
 thirst = 0
 camel_tiredness = 0
-natives_traveled = -20   # start 20 miles behind
+natives_traveled = -20  
+natives_traveled += random.randint(7, 14)
+ # start 20 miles behind
 canteen = 3
 done = False
 
@@ -69,7 +71,7 @@ while not done:
 
     elif choice == "D":
         camel_tiredness = 0
-        print("You stop for the night. Your casmel is happy.")
+        print("You stop for the night. Your camel is happy.") # fixed spelling
         natives_traveled += random.randint(7, 14)
 
     elif choice == "E":
