@@ -21,9 +21,8 @@ natives_traveled += random.randint(7, 14)
  # start 20 miles behind
 canteen = 3
 done = False
-
+ 
 # add camel class and selection here if (needed)
-
 
 
 typewriter("""
@@ -59,7 +58,7 @@ while not done:
         if canteen > 0:
             canteen -= 1
             thirst = 0
-            typewriter("You take a drink. Thirst is gone.", 0.02)
+            typewriter("You take a drink. sThirst is gone.", 0.02)
         else:
             typewriter("You have no drinks left!", 0.02)
 
@@ -134,6 +133,7 @@ while not done:
     if not done:
         input("\nPress Enter to continue...")
         os.system('cls' if os.name == 'nt' else 'clear')
-
+       
     
     
+   
