@@ -58,7 +58,7 @@ while not done:
         if canteen > 0:
             canteen -= 1
             thirst = 0
-            typewriter("You take a drink. sThirst is gone.", 0.02)
+            typewriter("You take a drink. Thirst is gone.", 0.02)
         else:
             typewriter("You have no drinks left!", 0.02)
 
@@ -125,7 +125,7 @@ while not done:
         elif not done and (miles_traveled - natives_traveled) < 15:
             typewriter("The natives are getting close!", 0.02)
 
-        if not done and miles_traveled >= 100:
+        if not done and miles_traveled >= 200:
             typewriter("You made it across the desert! You won! Congratulations!", 0.03)
             done = True
 
@@ -135,5 +135,5 @@ while not done:
         os.system('cls' if os.name == 'nt' else 'clear')
        
     
-    # Work in progress.
+    # Work in progress.                             
     # Implement camel class and selection feature.h   
