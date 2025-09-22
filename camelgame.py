@@ -12,6 +12,7 @@ def slow_print(text, color=Fore.WHITE, delay=0.02):
         time.sleep(delay)
     print()
 
+
 # --------------------------
 # NEW GAME SETUP
 # --------------------------
@@ -25,16 +26,44 @@ def new_game():
         "water": 80,
         "armor": 15,
         "morale": 10,
-        "gold": 0
-    }
-
+        "gold": 0,
+        "shipclass": None,  # Will be set after selection
+        "speed": 18,        # Default (Galleon)
+    }  
+sickness = False
 # --------------------------
 # MAIN MENU
 # --------------------------
+# Credits to display  menu
+credits = [
+    "Game Design: Aria Khanpour",     
+    "Coding: Tyler Sims & Aria Khanpour",
+    "Prompting: Tyler Sims",
+    "Special Thanks: Python Community"
+]
+
 def main_menu():
     while True:
+        # unique animated credits with fade-in effect
+        # Animated "CREDITS" reveal
+        for i in range(3):
+            print(Fore.MAGENTA + "C R E D I T S".center(40), end="\r", flush=True)
+            time.sleep(0.3)
+            print(" " * 40, end="\r", flush=True)
+            time.sleep(0.2)
+        print(Fore.MAGENTA + "C R E D I T S".center(40))
+        time.sleep(0.5)
+        for line in credits:
+            display = [' ' for _ in line]
+            for i, char in enumerate(line):
+                display[i] = char
+            print(Fore.MAGENTA + ''.join(display) + Style.RESET_ALL, end="\r", flush=True)
+            time.sleep(0.01)
+            print(Fore.MAGENTA + ''.join(display) + Style.RESET_ALL)
+            time.sleep(0.05)
+        print()
         print(Fore.CYAN + """
-        ============================
+  ============================
             VOYAGE OF THE STORMS
         ============================
         1. Start Voyage
@@ -51,6 +80,74 @@ def main_menu():
             break
         else:
             slow_print("Invalid choice!", Fore.RED)
+
+# --------------------------
+# SHIP CLASS SELECTION
+# --------------------------
+def ship_class_selection(stats):
+    print(Fore.CYAN + """
+    Choose your ship class:
+    1. Ambassador (Fast, low armor)
+    2. Galleon (Balanced)
+    3. Voyager (Slow, high armor)
+    4. Battleship (Big, and very powerful.)
+    """)
+    while True:
+        choice = input(Fore.YELLOW + "> ").strip()
+        if choice == "1":
+            slow_print("You chose the Ambassador: swift but fragile.", Fore.GREEN)
+            stats["shipclass"] = "Ambassador"
+            stats["speed"] = 22
+            stats["armor"] = 10
+            stats["crew"] = 15
+            break
+        elif choice == "2":
+            slow_print("You chose the Galleon: balanced and reliable.", Fore.GREEN)
+            stats["shipclass"] = "Galleon"
+            stats["speed"] = 18
+            stats["armor"] = 15
+            stats["crew"] = 18
+            break
+        elif choice == "3":
+            slow_print("You chose Voyager: slow but tough.", Fore.GREEN)
+            stats["shipclass"] = "Voyager"
+            stats["speed"] = 14
+            stats["armor"] = 22
+            stats["crew"] = 20
+            break
+        elif choice == "4":
+            slow_print("You chose Battleship: strong but slow.", Fore.GREEN)
+            stats["shipclass"] = "Battleship"
+            stats["speed"] = 15
+            stats["armor"] = 20
+            stats["crew"] = 30
+            break
+        else:
+            slow_print("Invalid choice! Please select 1, 2, 3, or 4.", Fore.RED)
+    return stats
+
+# Apply shipclass effects during events
+def apply_shipclass_effects(stats, event_type=None):
+    # event_type can be 'pirate', 'travel', etc.
+    if stats["shipclass"] == "Ambassador":
+        if event_type == "pirate":
+            # Ambassadors can sometimes avoid pirate fights
+            if random.random() < 0.3:
+                slow_print("Your swift Ambassador evades the pirates!", Fore.GREEN)
+                return "evaded"
+        elif event_type == "travel":
+            # Faster travel
+            return "fast"
+    elif stats["shipclass"] == "Voyager":
+        if event_type == "pirate":
+            # Voyagers take less damage from pirates
+            return "tough"
+    elif stats["shipclass"] == "Battleship":
+        if event_type == "pirate":
+            # Battleships deal more damage to pirates
+            return "strong"
+    # Galleon is balanced, no special effect
+    return None
 
 # --------------------------
 # INSTRUCTIONS
@@ -80,12 +177,19 @@ def instructions():
 # --------------------------
 def pirate_combat(stats):
     slow_print("🏴‍☠️ PIRATES attack! Prepare for battle!", Fore.RED)
+    # Shipclass effects
+    effect = apply_shipclass_effects(stats, event_type="pirate")
+    if effect == "evaded":
+        return stats
     pirate_health = random.randint(10, 18)
     player_health = stats["armor"] // 2  # ship's battle strength
 
     while pirate_health > 0 and player_health > 0:
         # Player turn
-        attack = random.randint(2, 6)
+        if effect == "strong":
+            attack = random.randint(4, 9)
+        else:
+            attack = random.randint(2, 6)
         pirate_health -= attack
         slow_print(f"You hit the pirates for {attack} damage!", Fore.CYAN)
         time.sleep(0.3)
@@ -94,7 +198,10 @@ def pirate_combat(stats):
             break
 
         # Pirate turn
-        damage = random.randint(2, 5)
+        if effect == "tough":
+            damage = random.randint(1, 3)
+        else:
+            damage = random.randint(2, 5)
         player_health -= damage
         slow_print(f"The pirates strike back for {damage} damage!", Fore.RED)
         time.sleep(0.3)
@@ -176,6 +283,13 @@ def random_event(stats):
         slow_print("💀 Sickness spreads among the crew!", Fore.MAGENTA)
         stats["crew"] -= 2
         stats["morale"] -= 1
+        killperson = input("throw the sick overboard?(y/n)")
+        if killperson == "y":
+            crew = crew-1
+            sickness =False 
+        else:
+            sickness=True
+            
     elif event == 5:
         slow_print("💰 You find floating treasure!", Fore.YELLOW)
         stats["gold"] += random.randint(10, 30)
@@ -189,12 +303,16 @@ def random_event(stats):
 def play_game():
     stats = new_game()
     done = False
+    stats = ship_class_selection(stats)
 
     while not done:
         stats["day"] += 1
+        if sickness == True:
+            print("some of your crew dies from sickness.")
+            crew= crew- random.randint
         print(Fore.CYAN + f"\n--- Day {stats['day']} ---")
         print(Fore.YELLOW + f"Miles: {stats['miles']}/{stats['goal']} | Crew: {stats['crew']} | Food: {stats['food']} | Water: {stats['water']}")
-        print(Fore.YELLOW + f"Armor: {stats['armor']} | Morale: {stats['morale']} | Gold: {stats['gold']}")
+        print(Fore.YELLOW + f"Armor: {stats['armor']} | Morale: {stats['morale']} | Gold: {stats['gold']} | Ship: {stats['shipclass']}")
 
         print(Fore.CYAN + """
         Choose an action:
@@ -207,7 +325,11 @@ def play_game():
         choice = input(Fore.YELLOW + "> ").strip()
 
         if choice == "1":  # Sail
-            travel = random.randint(12, 25)
+            effect = apply_shipclass_effects(stats, event_type="travel")
+            if effect == "fast":
+                travel = random.randint(stats["speed"], stats["speed"] + 8)
+            else:
+                travel = random.randint(stats["speed"] - 3, stats["speed"] + 4)
             stats["miles"] += travel
             stats["food"] -= 5
             stats["water"] -= 5
@@ -239,16 +361,16 @@ def play_game():
             slow_print("The crew STARVED. Game Over.", Fore.RED)
             done = True
         elif stats["water"] <= 0:
-            slow_print("The crew has NO WATER. Game Over.", Fore.RED)
+            slow_print("The crew DIES. Game Over.", Fore.RED)
             done = True
         elif stats["morale"] <= 0:
-            slow_print("The crew MUTINIES. Game Over.", Fore.RED)
+            slow_print("The crew KILLS you. Game Over.", Fore.RED)
             done = True
         elif stats["armor"] <= 0:
             slow_print("The ship SINKS. Game Over.", Fore.RED)
             done = True
         elif stats["crew"] <= 0:
-            slow_print("All crew are lost. Game Over.", Fore.RED)
+            slow_print("The crew DIES. Game Over.", Fore.RED)
             done = True
         elif stats["miles"] >= stats["goal"]:
             if stats["gold"] > 100:
@@ -265,6 +387,7 @@ def play_game():
         play_game()
     else:
         slow_print("Farewell, Captain!", Fore.GREEN)
+        quit()
 
 # --------------------------
 # RUN GAME
